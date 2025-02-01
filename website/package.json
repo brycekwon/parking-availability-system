@@ -1,0 +1,17 @@
+{
+    "name": "parking-availability-system-website",
+    "version": "0.1.0",
+    "scripts": {
+        "build:css": "postcss ./assets/css/styles.css -o ./dist/css/styles.css",
+        "build:js": "esbuild ./assets/js/availability.js --bundle --outfile=./dist/js/availability.js",
+        "build": "npm run build:css && npm run build:js && cp ./assets/favicon.ico ./dist/favicon.ico",
+        "dev": "npm run build:css && npm run build:js && cp ./assets/favicon.ico ./dist/favicon.ico && go run ."
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "esbuild": "^0.25.0",
+        "postcss": "^8.5.1",
+        "postcss-cli": "^11.0.0",
+        "tailwindcss": "^3.4.17"
+    }
+}
