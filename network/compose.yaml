@@ -1,0 +1,59 @@
+volumes:
+  postgresql-data:
+  redis-data:
+
+networks:
+  parking-net:
+    external: true
+
+services:
+  chirpstack:
+    image: chirpstack/chirpstack:4
+    command: -c /etc/chirpstack
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+      - redis
+      - postgresql
+    environment:
+      - MQTT_BROKER_HOST=mosquitto
+      - REDIS_HOST=redis
+      - POSTGRESQL_HOST=postgresql
+    networks:
+      - parking-net
+    volumes:
+      - ./config/chirpstack:/etc/chirpstack
+    ports:
+      - "8080:8080"
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    networks:
+      - parking-net
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./config/mosquitto:/mosquitto/config
+
+  redis:
+    networks:
+      - parking-net
+    image: redis:7-alpine
+    command: redis-server --save 300 1 --save 60 100 --appendonly no
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+  
+  postgresql:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    networks:
+      - parking-net
+    environment:
+      - POSTGRES_DB=chirpstack
+      - POSTGRES_USER=chirpstack
+      - POSTGRES_PASSWORD=chirpstack
+    volumes:
+      - ./config/postgresql:/docker-entrypoint-initdb.d
+      - postgresql-data:/var/lib/postgresql/data

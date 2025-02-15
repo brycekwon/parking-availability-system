@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        {{ partial "metadata" . }}
+    </head>
+    <body class="bg-gray-50 text-gray-900">
+
+        <header>
+            {{ partial "navbar" . }}
+            {{ partial "header" . }}
+        </header>
+
+        <main class="py-10 px-4 sm:px-6 lg:px-8">
+            {{ block "main" . }}{{ end }}
+        </main>
+
+        <footer class="bg-gray-200 text-gray-800 py-6">
+            {{ partial "footer" . }}
+        </footer>
+
+    </body>
+</html>

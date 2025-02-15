@@ -1,0 +1,12 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Parking Availability System</title>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+{{ $stylesheet := resources.Get "css/styles.css" | postCSS | minify | fingerprint "sha256" | resources.PostProcess }}
+<link crossorigin="anonymous" href="{{- $stylesheet.Permalink -}}" integrity="{{- $stylesheet.Data.Integrity -}}" rel="preload stylesheet" as="style">
+
+{{ $script := resources.Get "js/availability.js" | js.Build (dict `format` `esm`) | minify | fingerprint "sha256"  }}
+<script defer crossorigin="anonymous" src="{{- $script.Permalink -}}" integrity="{{- $script.Data.Integrity -}}"></script>

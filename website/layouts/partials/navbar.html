@@ -1,0 +1,14 @@
+<nav class="bg-[#140f39] text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <a href="/" class="text-2xl font-bold">{{- site.Title -}}</a>
+            <div class="space-x-4">
+                {{ range site.Menus.main }}
+                    <a href="{{- .URL -}}" class="text-sm px-4 py-2 rounded-lg hover:bg-[#372d68]">
+                        <span class="font-medium uppercase tracking-wide">{{- .Name -}}</span>
+                    </a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</nav>
