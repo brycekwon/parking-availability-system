@@ -1,0 +1,34 @@
+title: "Parking Availability System"
+languageCode: en-us
+copyright: "© 2025 UP Parking Capstone Team"
+
+disableHugoGeneratorInject: true
+disableKinds: ["RSS", "robotsTXT", "term", "taxonomy"]
+
+minify:
+  minifyOutput: true
+
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: postcss\.config\.js
+      target: (css|styles)
+  noJSConfigInAssets: true
+
+removePathAccents: true
+
+menu:
+  main:
+    - name: "Home"
+      url: "/home/"
+      weight: 10
+    - name: "Map"
+      url: "/map/"
+      weight: 20
+    - name: "Statistics"
+      url: "/statistics/"
+      weight: 30
+    - name: "Help"
+      url: "/help/"
+      weight: 40

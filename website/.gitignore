@@ -1,0 +1,10 @@
+/public
+/resources
+
+.hugo_build.lock
+hugo_stats.json
+
+node_modules/
+
+# executable binary
+website
