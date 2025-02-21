@@ -26,13 +26,13 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - parking-net
 
 volumes:
   redis-data:
-  postgres_data:
+  postgres-data:
 
 networks:
   parking-net:
