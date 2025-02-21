@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"log/slog"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/jmoiron/sqlx"
@@ -27,7 +28,7 @@ func (a *App) initDatabase() error {
 		CREATE TABLE IF NOT EXISTS events (
 			timestamp TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			lotname VARCHAR(255) NOT NULL,
-			lotnumber INT NOT NULL,
+			spotid INT NOT NULL,
 			status INT NOT NULL
 		);
 	`
@@ -35,6 +36,8 @@ func (a *App) initDatabase() error {
 	if err != nil {
 		return fmt.Errorf("failed to create events table: %w", err)
 	}
+
+	a.logger.Info("database initialized", slog.String("address", fmt.Sprintf("%s:%d", a.cfg.DatabaseConfig.Host, a.cfg.DatabaseConfig.Port)))
 
 	return nil
 }
@@ -47,6 +50,8 @@ func (a *App) initCache() error {
 		DB: 1,
 	})
 	a.cache = client
+
+	a.logger.Info("cache initialized", slog.String("address", fmt.Sprintf("%s:%d", a.cfg.CacheConfig.Host, a.cfg.CacheConfig.Port)))
 
 	return nil
 }

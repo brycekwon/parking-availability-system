@@ -30,7 +30,8 @@ func New() *App {
 		cfg: config.New(),
 
 		router: http.NewServeMux(),
-		logger: slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug})),
+		// logger: slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug})),
+		logger: slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug})),
 	}
 }
 
@@ -72,7 +73,7 @@ func (a *App) Start(ctx context.Context) {
 		close(done)
 	}()
 
-	a.logger.Info("server is ready to serve", slog.String("address", addr))
+	a.logger.Info("server is listening", slog.String("address", addr))
 
 	select {
 	case <-done:

@@ -25,7 +25,7 @@ func (h *Handler) InsertEvent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = models.InsertEvent(h.db, name, status)
+	err = models.InsertEvent(h.db, name, 2, status)
 	if err != nil {
 		h.logger.Error("Failed to insert event to database", slog.Any("error", err))
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
