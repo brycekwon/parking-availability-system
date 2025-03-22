@@ -38,15 +38,15 @@ func New() *App {
 func (a *App) Start(ctx context.Context) {
 	a.ctx = ctx
 
-	if err := a.initDatabase(); err != nil {
-		a.logger.Error("failed to initialize database", slog.Any("error", err))
-		return
-	}
+	// if err := a.initDatabase(); err != nil {
+	// 	a.logger.Error("failed to initialize database", slog.Any("error", err))
+	// 	return
+	// }
 
-	if err := a.initCache(); err != nil {
-		a.logger.Error("failed to initialize cache", slog.Any("error", err))
-		return
-	}
+	// if err := a.initCache(); err != nil {
+	// 	a.logger.Error("failed to initialize cache", slog.Any("error", err))
+	// 	return
+	// }
 
 	if err := a.loadPages(); err != nil {
 		a.logger.Error("failed to load pages", slog.Any("error", err))

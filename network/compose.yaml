@@ -4,10 +4,8 @@ volumes:
 
 networks:
   parking-net:
-    external: true
 
 services:
-
   chirpstack:
     image: chirpstack/chirpstack:4
     command: -c /etc/chirpstack
@@ -27,29 +25,13 @@ services:
     ports:
       - "8080:8080"
 
-  chirpstack-gateway-bridge:
-    image: chirpstack/chirpstack-gateway-bridge:4
-    restart: unless-stopped
-    depends_on:
-      - mosquitto
-    environment:
-      - INTEGRATION__MQTT__EVENT_TOPIC_TEMPLATE=us915/gateway/{{ .GatewayID }}/event/{{ .EventType }}
-      - INTEGRATION__MQTT__STATE_TOPIC_TEMPLATE=us915/gateway/{{ .GatewayID }}/state/{{ .StateType }}
-      - INTEGRATION__MQTT__COMMAND_TOPIC_TEMPLATE=us915/gateway/{{ .GatewayID }}/command/#
-    networks:
-      - parking-net
-    volumes:
-      - "./config/bridge:/etc/chirpstack-gateway-bridge"
-    ports:
-      - "1700:1700/udp"
-
   mosquitto:
     image: eclipse-mosquitto:2
     restart: unless-stopped
     networks:
       - parking-net
     ports:
-      - "1883:1883"
+      - "0.0.0.0:1883:1883"
     volumes:
       - ./config/mosquitto:/mosquitto/config
 
